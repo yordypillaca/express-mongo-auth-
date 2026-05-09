@@ -13,6 +13,9 @@ if (process.platform === 'win32') {
 const PORT = Number(process.env.PORT) || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
+// Sin esto, si Mongo no conecta, Mongoose encola consultas y acaba en timeout/crash (buffering).
+mongoose.set('bufferCommands', false);
+
 process.on('unhandledRejection', (reason) => {
   console.error('Unhandled rejection:', reason);
 });
